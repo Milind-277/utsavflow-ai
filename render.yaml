@@ -1,48 +1,36 @@
-# UtsavFlow AI - Render Infrastructure as Code Blueprint
-# Reference: https://render.com/docs/blueprint-spec
-
 version: "1"
 
 services:
-  # -- Backend Node.js / Express Web Service -------------------
-    - type: web
-        name: utsavflow-backend
-            runtime: node
-                rootDir: backend
-                    plan: free
-                        buildCommand: npm install && npm run build
-                            startCommand: npm run start
-                                healthCheckPath: /api/health
-                                    envVars:
-                                          - key: NODE_ENV
-                                                  value: production
-                                                        - key: PORT
-                                                                value: 10000
-                                                                      - key: CORS_ORIGIN
-                                                                              # Update this to your deployed frontend URL (e.g., https://utsavflow-frontend.onrender.com)
-                                                                                      value: https://utsavflow-frontend.onrender.com
-                                                                                            - key: TRUST_PROXY
-                                                                                                    # Render load balancers sit 1 hop in front of the container
-                                                                                                            value: "1"
-                                                                                                                  - key: GEMINI_MODEL
-                                                                                                                          value: gemini-3.8-flash
-                                                                                                                                - key: GEMINI_API_KEY
-                                                                                                                                        # Set securely in the Render Dashboard -> Environment tab (never commit)
-                                                                                                                                                sync: false
-                                                                                                                                                
-                                                                                                                                                  # -- Frontend Static Site -----------------------------------
-                                                                                                                                                    - type: web
-                                                                                                                                                        name: utsavflow-frontend
-                                                                                                                                                            runtime: static
-                                                                                                                                                                rootDir: frontend
-                                                                                                                                                                    buildCommand: npm install && npm run build
-                                                                                                                                                                        staticPublishPath: dist
-                                                                                                                                                                            routes:
-                                                                                                                                                                                  # Single Page Application (SPA) rewrite for React Router
-                                                                                                                                                                                        - type: rewrite
-                                                                                                                                                                                                source: /*
-                                                                                                                                                                                                        destination: /index.html
-                                                                                                                                                                                                            headers:
-                                                                                                                                                                                                                  - path: /*
-                                                                                                                                                                                                                          name: X-Frame-Options
-                                                                                                                                                                                                                                  value: SAMEORIGIN
+  - type: web
+      name: utsavflow-backend
+          runtime: node
+              rootDir: backend
+                  plan: free
+                      buildCommand: npm install && npm run build
+                          startCommand: npm run start
+                              healthCheckPath: /api/health
+                                  envVars:
+                                        - key: NODE_ENV
+                                                value: production
+                                                      - key: PORT
+                                                              value: 10000
+                                                                    - key: CORS_ORIGIN
+                                                                            value: https://utsavflow-frontend.onrender.com
+                                                                                  - key: TRUST_PROXY
+                                                                                          value: "1"
+                                                                                                - key: GEMINI_MODEL
+                                                                                                        value: gemini-3.8-flash
+                                                                                                              - key: GEMINI_API_KEY
+                                                                                                                      sync: false
+                                                                                                                      
+                                                                                                                        - type: web
+                                                                                                                            name: utsavflow-frontend
+                                                                                                                                runtime: static
+                                                                                                                                    rootDir: frontend
+                                                                                                                                        buildCommand: npm install && npm run build
+                                                                                                                                            staticPublishPath: dist
+                                                                                                                                                routes:
+                                                                                                                                                      - type: rewrite
+                                                                                                                                                              source: /*
+                                                                                                                                                                      destination: /index.html
+                                                                                                                                                                      
