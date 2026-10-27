@@ -20,7 +20,7 @@ services:
                                                                                                 - key: GEMINI_MODEL
                                                                                                         value: gemini-3.8-flash
                                                                                                               - key: GEMINI_API_KEY
-                                                                                                                      sync: false
+                                                                                                                      value: dummy_api_key
                                                                                                                       
                                                                                                                         - type: web
                                                                                                                             name: utsavflow-frontend
@@ -32,3 +32,4 @@ services:
                                                                                                                                                       - type: rewrite
                                                                                                                                                               source: /*
                                                                                                                                                                       destination: /index.html
+                                                                                                                                                                      
