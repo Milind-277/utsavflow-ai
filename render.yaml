@@ -1,5 +1,4 @@
 version: "1"
-
 services:
   - type: web
       name: utsavflow-backend
@@ -22,7 +21,6 @@ services:
                                                                                                         value: gemini-3.8-flash
                                                                                                               - key: GEMINI_API_KEY
                                                                                                                       sync: false
-                                                                                                                      
                                                                                                                         - type: web
                                                                                                                             name: utsavflow-frontend
                                                                                                                                 runtime: static
