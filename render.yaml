@@ -1,33 +1,37 @@
 version: "1"
 services:
-- type: web
-name: utsavflow-backend
-env: node
-rootDir: backend
-plan: free
-buildCommand: npm install && npm run build
-startCommand: npm run start
-healthCheckPath: /api/health
-envVars:
-- key: NODE_ENV
-value: production
-- key: PORT
-value: 10000
-- key: CORS_ORIGIN
-value: https://utsavflow-frontend.onrender.com
-- key: TRUST_PROXY
-value: "1"
-- key: GEMINI_MODEL
-value: gemini-3.8-flash
-- key: GEMINI_API_KEY
-value: dummy_api_key
-- type: web
-name: utsavflow-frontend
-env: static
-rootDir: frontend
-buildCommand: npm install && npm run build
-staticPublishPath: dist
-routes:
-- type: rewrite
-source: /*
-destination: /index.html
+  - type: web
+    name: utsavflow-backend
+    env: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CORS_ORIGIN
+        value: https://utsavflow-frontend.onrender.com
+      - key: TRUST_PROXY
+        value: "1"
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: GEMINI_API_KEY
+        sync: false
+
+  - type: web
+    name: utsavflow-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://utsavflow-backend.onrender.com
