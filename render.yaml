@@ -31,9 +31,9 @@ services:
         sync: false
 
   # ── Frontend Static Site ───────────────────────────────────
-  - type: web
+  - type: static
     name: utsavflow-frontend
-    runtime: static
+    
     rootDir: frontend
     plan: free
     buildCommand: npm install && npm run build
