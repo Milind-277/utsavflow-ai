@@ -1,0 +1,18 @@
+# Backend .gitignore
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+.nyc_output/
