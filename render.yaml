@@ -2,7 +2,7 @@ version: "1"
 services:
   - type: web
       name: utsavflow-backend
-          runtime: node
+          env: node
               rootDir: backend
                   plan: free
                       buildCommand: npm install && npm run build
@@ -21,9 +21,10 @@ services:
                                                                                                         value: gemini-3.8-flash
                                                                                                               - key: GEMINI_API_KEY
                                                                                                                       sync: false
+                                                                                                                      
                                                                                                                         - type: web
                                                                                                                             name: utsavflow-frontend
-                                                                                                                                runtime: static
+                                                                                                                                env: static
                                                                                                                                     rootDir: frontend
                                                                                                                                         buildCommand: npm install && npm run build
                                                                                                                                             staticPublishPath: dist
